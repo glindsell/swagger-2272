@@ -1,0 +1,53 @@
+basePath: /
+consumes:
+- application/json
+definitions:
+  Hello:
+    properties:
+      message:
+        $ref: '#/definitions/Message'
+    type: object
+    x-go-package: github.com/glindsell/hello/api
+  Message:
+    properties:
+      words:
+        type: string
+        x-go-name: Body
+    type: object
+    x-go-package: github.com/glindsell/hello/api
+host: localhost:8080
+info:
+  description: Documentation of our hello API.
+  title: hello.
+  version: 1.0.0
+paths:
+  /hello:
+    post:
+      consumes:
+      - application/json
+      operationId: idOfHelloEndpoint
+      parameters:
+      - in: query
+        name: name
+        type: string
+        x-go-name: Name
+      produces:
+      - application/json
+      responses:
+        "200":
+          $ref: '#/responses/helloResponse'
+      summary: Hello returns hello world string with given input.
+      tags:
+      - hello-tag
+produces:
+- application/json
+responses:
+  helloResponse:
+    description: This text will appear as description of your response body.
+    schema:
+      items:
+        $ref: '#/definitions/Hello'
+      type: array
+schemes:
+- http
+swagger: "2.0"
